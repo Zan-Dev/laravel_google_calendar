@@ -6,11 +6,11 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('dashboard');
-});
+})->middleware('auth');
 
 Route::get('/login', function(){
     return view('login');
-})->middleware('guest');
+})->name('login')->middleware('guest');
 
 Route::get('/redirect', [AuthController::class, 'redirect'])->name('redirect');
 Route::get('/callback', [GoogleCalendarController::class, 'handleGoogleCallback'])->name('callback');
