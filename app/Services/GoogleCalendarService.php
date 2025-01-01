@@ -1,7 +1,7 @@
 <?php 
 
 namespace App\Services; 
-use Google\Client; 
+use Google\Client ; 
 use Google\Service\Calendar; 
 
 class GoogleCalendarService {    
@@ -9,12 +9,10 @@ class GoogleCalendarService {
 	protected $calendarService;    
 	
 	public function __construct() {        
-		$this->client = new Client();        
-		$this->client->setClientId(config('services.google.client_id'));        
-		$this->client->setClientSecret(config('services.google.client_secret'));        
-		$this->client->setRedirectUri(config('services.google.redirect'));        
+		$this->client = new Client();        	      
 		$this->client->addScope(Calendar::CALENDAR);        
 		$this->calendarService = new Calendar($this->client);    
+		$this->client->setAuthConfig(storage_path('app/cridentials.json'));
 	}    
 	
 	public function authenticate($code) {        
@@ -40,8 +38,7 @@ class GoogleCalendarService {
 		$this->getClient();        
 		$event = new \Google\Service\Calendar\Event($eventData);        
 		$event = $this->calendarService->events->insert($calendarId, $event);
-		
-		// You can also insert the event in DB to retrieve it from there later        
+				  
 		return $event;    
 	} 
 }

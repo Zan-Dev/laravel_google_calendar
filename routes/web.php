@@ -13,9 +13,11 @@ Route::get('/login', function(){
 })->name('login')->middleware('guest');
 
 Route::get('/redirect', [AuthController::class, 'redirect'])->name('redirect');
-Route::get('/callback', [GoogleCalendarController::class, 'handleGoogleCallback'])->name('callback');
+Route::get('/callback', [AuthController::class, 'callback'])->name('callback');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/calendar', [GoogleCalendarController::class, 'ListEvents'])->name('calendar.events');
 
-Route::get('auth/google', [GoogleCalendarController::class, 'redirectToGoogle']); 
-Route::get('auth/google/callback', [GoogleCalendarController::class, 'handleGoogleCallback']);
-Route::get('/showEvents', [GoogleCalendarController::class, 'showEvents'])->name('showEvents');
+
+// Route::get('auth/google', [GoogleCalendarController::class, 'redirectToGoogle']); 
+// Route::get('auth/google/callback', [GoogleCalendarController::class, 'handleGoogleCallback']);
+// Route::get('/showEvents', [GoogleCalendarController::class, 'showEvents'])->name('showEvents');
